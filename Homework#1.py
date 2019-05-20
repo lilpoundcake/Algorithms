@@ -24,27 +24,23 @@ print('Разность между суммой квадратов от 0 до %
 '''Решение универсально как для проблемы 18, так и для проблемы 67'''
 
 pyramid = []
-max_summ = 0
-max_str = 0
 
-numbers = open('Triangle.txt') 
+numbers = open('Numbers.txt') 
 
 for lines in numbers:
     pyramid += [lines.strip().split(' ')]
 
 for i in range(len(pyramid)):
-    max_str = int(pyramid[i][0])
-    
-    for j in range(len(pyramid[i])):
-        if max_str >= int(pyramid[i][j]):
-            continue
+    for j in range(i+1):
+        pyramid[i][j] = int(pyramid[i][j])
+
+for i in range(len(pyramid)-1, 0, -1):
+    for j in range(len(pyramid[i])-1):
+        if pyramid[i][j] >= pyramid[i][j+1]:
+            pyramid[i-1][j] += pyramid[i][j]
         else:
-            max_str = int(pyramid[i][j])
-    
-    max_summ += max_str
-
-print('Максимальная сумма в пирамиде сверху вниз составляет %i.' % (max_summ))
-
+            pyramid[i-1][j] += pyramid[i][j+1]
+print('Максимальная сумма равна', pyramid[0][0], '.')
 
 
 #Задание 20
